@@ -10,6 +10,9 @@ public class TileEntityTorchNew extends TileEntity {
 
 	public int light;
 
+	public TileEntityTorchNew() {
+	}
+
 	public TileEntityTorchNew(int light) {
 		this.light = light;
 	}

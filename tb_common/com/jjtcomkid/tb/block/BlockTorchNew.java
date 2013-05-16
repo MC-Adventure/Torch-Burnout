@@ -6,6 +6,7 @@ import java.util.Random;
 import net.minecraft.block.BlockTorch;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
@@ -146,7 +147,7 @@ public class BlockTorchNew extends BlockTorch {
 
 	@Override
 	public TileEntity createTileEntity(World world, int metadata) {
-		return new TileEntityTorchNew(metadata);
+		return new TileEntityTorchNew();
 	}
 
 	@Override
@@ -204,6 +205,17 @@ public class BlockTorchNew extends BlockTorch {
 	}
 
 	@Override
+	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving entity, ItemStack itemStack) {
+		TileEntityTorchNew tile = (TileEntityTorchNew)world.getBlockTileEntity(x, y, z);
+		if (tile != null) {
+			tile.light = 15 - itemStack.getItemDamage();
+		}
+		if (itemStack.getItemDamage() == 15) {
+			world.setBlockMetadataWithNotify(x, y, z, world.getBlockMetadata(x, y, z) + 5, 3);
+		}
+	}
+
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(World world, int x, int y, int z, Random random) {
 		int metadata = world.getBlockMetadata(x, y, z);
@@ -229,7 +241,7 @@ public class BlockTorchNew extends BlockTorch {
 			if (tile != null) {
 				light = tile.light;
 				if (light > 0) {
-					light -= 1;
+					light -= 5;
 					tile.light = light;
 				}
 				if (light == 0) {
