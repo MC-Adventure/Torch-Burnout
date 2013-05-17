@@ -99,4 +99,4 @@ Our mod causes crashes every time?  Have a suggestion?  Found a bug?  Create an 
 5. Click `Submit new issue`, and you're done!
 
 #### Credits
-Thanks to the awesome people at Mojang, the Minecraft community, the people behind Minecraft Forge, Pahimar (for the excellent tutorials shown above and some very good modding tutorials), and everyone who has ever contributed something to minecraft.
+Thanks to the awesome people at Mojang, the Minecraft community, the people behind Minecraft Forge, [Pahimar] (http://github.org/pahimar) (for the excellent tutorials shown above and some very good modding tutorials), and everyone who has ever contributed something to minecraft.
