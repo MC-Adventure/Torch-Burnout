@@ -21,6 +21,13 @@ import com.jjtcomkid.tb.tileentity.TileEntityTorchNew;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
+/**
+ * Torch Burnout
+ *
+ * @author jjtcomkid
+ * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
+ *
+ */
 public class BlockTorchNew extends BlockTorch {
 
 	@SideOnly(Side.CLIENT)
@@ -36,7 +43,7 @@ public class BlockTorchNew extends BlockTorch {
 
 	@Override
 	public MovingObjectPosition collisionRayTrace(World world, int x, int y, int z, Vec3 vector1, Vec3 vector2) {
-		int metadata = world.getBlockMetadata(x, y, z) & 7;
+		int metadata = world.getBlockMetadata(x, y, z);
 		float f = 0.15F;
 
 		if (metadata == 1 || metadata == 6) {
@@ -206,7 +213,7 @@ public class BlockTorchNew extends BlockTorch {
 
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving entity, ItemStack itemStack) {
-		TileEntityTorchNew tile = (TileEntityTorchNew)world.getBlockTileEntity(x, y, z);
+		TileEntityTorchNew tile = (TileEntityTorchNew) world.getBlockTileEntity(x, y, z);
 		if (tile != null) {
 			tile.light = 15 - itemStack.getItemDamage();
 		}

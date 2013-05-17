@@ -9,6 +9,13 @@ import com.jjtcomkid.tb.TorchBurnout;
 
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
+/**
+ * Torch Burnout
+ *
+ * @author jjtcomkid
+ * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
+ *
+ */
 public class RenderTorchNew implements ISimpleBlockRenderingHandler {
 
 	@Override
@@ -44,7 +51,7 @@ public class RenderTorchNew implements ISimpleBlockRenderingHandler {
 		} else if (metadata == 4 || metadata == 9) {
 			renderer.renderTorchAtAngle(block, x, y + d2, z + d1, 0.0D, d0, burnt);
 		} else {
-			renderer.renderTorchAtAngle(block, x, y, z, 0.0D, 0.0D, 0);
+			renderer.renderTorchAtAngle(block, x, y, z, 0.0D, 0.0D, burnt);
 		}
 
 		return false;

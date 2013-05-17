@@ -4,6 +4,13 @@ import com.jjtcomkid.tb.client.renderer.RenderTorchNew;
 
 import cpw.mods.fml.client.registry.RenderingRegistry;
 
+/**
+ * Torch Burnout
+ *
+ * @author jjtcomkid
+ * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
+ *
+ */
 public class ClientProxy extends CommonProxy {
 
 	@Override

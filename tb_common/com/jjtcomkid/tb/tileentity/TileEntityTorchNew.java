@@ -6,6 +6,13 @@ import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
 
+/**
+ * Torch Burnout
+ *
+ * @author jjtcomkid
+ * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
+ *
+ */
 public class TileEntityTorchNew extends TileEntity {
 
 	public int light;
