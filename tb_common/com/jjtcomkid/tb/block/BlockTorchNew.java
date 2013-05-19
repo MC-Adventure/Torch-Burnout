@@ -159,7 +159,7 @@ public class BlockTorchNew extends BlockTorch {
 
 	@Override
 	public int damageDropped(int metadata) {
-		return 15;
+		return 14;
 	}
 
 	@Override
@@ -177,7 +177,7 @@ public class BlockTorchNew extends BlockTorch {
 			int light = tile.light;
 			return light;
 		}
-		return 0;
+		return 14;
 	}
 
 	@Override
@@ -215,9 +215,9 @@ public class BlockTorchNew extends BlockTorch {
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving entity, ItemStack itemStack) {
 		TileEntityTorchNew tile = (TileEntityTorchNew) world.getBlockTileEntity(x, y, z);
 		if (tile != null) {
-			tile.light = 15 - itemStack.getItemDamage();
+			tile.light = 14 - itemStack.getItemDamage();
 		}
-		if (itemStack.getItemDamage() == 15) {
+		if (itemStack.getItemDamage() == 14) {
 			world.setBlockMetadataWithNotify(x, y, z, world.getBlockMetadata(x, y, z) + 5, 3);
 		}
 	}
@@ -248,7 +248,7 @@ public class BlockTorchNew extends BlockTorch {
 			if (tile != null) {
 				light = tile.light;
 				if (light > 0) {
-					light -= 5;
+					light -= 1;
 					tile.light = light;
 				}
 				if (light == 0) {

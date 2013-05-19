@@ -50,11 +50,11 @@ public class TorchBurnout {
 		Item.itemsList[50] = null;
 		GameRegistry.registerBlock(torchNew, ItemTorchNew.class, "torchNew");
 
-		for (int i = 0; i < 16; i++) {
+		for (int i = 0; i <= 14; i++) {
 			ItemStack torchNewBlockStack = new ItemStack(torchNew, 1, i);
 			if (i == 0) {
 				LanguageRegistry.addName(torchNewBlockStack, "Lit Torch");
-			} else if (i < 15) {
+			} else if (i < 14) {
 				LanguageRegistry.addName(torchNewBlockStack, "Partially Burnt Torch");
 			} else {
 				LanguageRegistry.addName(torchNewBlockStack, "Unlit Torch");

@@ -26,8 +26,8 @@ public class ItemTorchNew extends ItemBlock {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public Icon getIconFromDamage(int metadata) {
-		if (metadata == 15)
-			return TorchBurnout.torchNew.getIcon(0, 15);
+		if (metadata == 14)
+			return TorchBurnout.torchNew.getIcon(0, 14);
 		else
 			return TorchBurnout.torchNew.getIcon(0, 0);
 	}
@@ -37,7 +37,7 @@ public class ItemTorchNew extends ItemBlock {
 		int damage = itemStack.getItemDamage();
 		if (damage == 0)
 			return "torchLit";
-		else if (damage < 15)
+		else if (damage < 14)
 			return "torchPartiallyLit";
 		else
 			return "torchUnlit";
