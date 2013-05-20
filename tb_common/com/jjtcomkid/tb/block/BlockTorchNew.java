@@ -189,7 +189,7 @@ public class BlockTorchNew extends BlockTorch {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(int id, CreativeTabs tabs, List itemList) {
-		for (int i = 0; i < 16; ++i) {
+		for (int i = 0; i < 15; ++i) {
 			itemList.add(new ItemStack(id, 1, i));
 		}
 	}
