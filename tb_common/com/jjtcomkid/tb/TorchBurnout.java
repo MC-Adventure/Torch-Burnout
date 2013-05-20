@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 
 import com.jjtcomkid.core.handler.LogHandler;
 import com.jjtcomkid.core.handler.OverrideHandler;
+import com.jjtcomkid.tb.block.BlockRedstoneTorchNew;
 import com.jjtcomkid.tb.block.BlockTorchNew;
 import com.jjtcomkid.tb.item.ItemTorchNew;
 import com.jjtcomkid.tb.proxy.CommonProxy;
@@ -31,6 +32,7 @@ public class TorchBurnout {
 	public static int renderID;
 
 	public static BlockTorchNew torchNew;
+	public static BlockRedstoneTorchNew torchRedstoneNew;
 
 	public static final LogHandler logger = new LogHandler("TorchBurnout");
 
@@ -39,9 +41,12 @@ public class TorchBurnout {
 		logger.info("Overiding vanilla torches.");
 
 		Block.blocksList[50] = null;
+		Block.blocksList[76] = null;
 		torchNew = new BlockTorchNew();
+		torchRedstoneNew = new BlockRedstoneTorchNew(true);
 
 		OverrideHandler.replaceBlock(Block.torchWood, torchNew);
+		OverrideHandler.replaceBlock(Block.torchRedstoneActive, torchRedstoneNew);
 
 		proxy.registerRenderInformation();
 
