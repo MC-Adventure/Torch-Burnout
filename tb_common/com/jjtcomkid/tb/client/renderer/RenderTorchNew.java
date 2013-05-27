@@ -11,10 +11,10 @@ import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
 /**
  * Torch Burnout
- *
+ * 
  * @author jjtcomkid
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
- *
+ * 
  */
 public class RenderTorchNew implements ISimpleBlockRenderingHandler {
 

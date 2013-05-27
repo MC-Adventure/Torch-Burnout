@@ -1,8 +1,11 @@
 package com.jjtcomkid.tb;
 
 import net.minecraft.block.Block;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import com.jjtcomkid.core.handler.LogHandler;
 import com.jjtcomkid.core.handler.OverrideHandler;
@@ -19,10 +22,10 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 
 /**
  * Torch Burnout
- *
+ * 
  * @author jjtcomkid
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
- *
+ * 
  */
 @Mod(modid = "TorchBurnout", name = "Torch Burnout", version = "0.0.0")
 public class TorchBurnout {
@@ -39,11 +42,21 @@ public class TorchBurnout {
 	@Mod.Init
 	public void init(FMLInitializationEvent event) {
 		logger.info("Overiding vanilla torches.");
+		for (String name : OreDictionary.getOreNames()) {
+			logger.info(name);
+		}
+
+		if (OverrideHandler.removeRecipesWithResult(new ItemStack(Block.torchWood, 4)) == 2) {
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Block.torchWood, 4, 14), new Object[] { "X", "#", 'X', Item.coal, '#', "stickWood" }));
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Block.torchWood, 4, 14), new Object[] { "X", "#", 'X', new ItemStack(Item.coal, 1, 1), '#', "stickWood" }));
+		} else {
+			logger.severe("Unable to replace torch recipes");
+		}
 
 		Block.blocksList[50] = null;
 		Block.blocksList[76] = null;
-		torchNew = new BlockTorchNew();
-		torchRedstoneNew = new BlockRedstoneTorchNew(true);
+		torchNew = (BlockTorchNew) new BlockTorchNew().setHardness(0.0F).setLightValue(0.9375F).setStepSound(Block.soundWoodFootstep).setUnlocalizedName("torchNew");
+		torchRedstoneNew = (BlockRedstoneTorchNew) new BlockRedstoneTorchNew(true).setHardness(0.0F).setLightValue(0.8F / 3F).setStepSound(Block.soundWoodFootstep).setUnlocalizedName("notGate").setCreativeTab(CreativeTabs.tabRedstone);
 
 		OverrideHandler.replaceBlock(Block.torchWood, torchNew);
 		OverrideHandler.replaceBlock(Block.torchRedstoneActive, torchRedstoneNew);
@@ -65,6 +78,7 @@ public class TorchBurnout {
 				LanguageRegistry.addName(torchNewBlockStack, "Unlit Torch");
 			}
 		}
+
 	}
 
 }

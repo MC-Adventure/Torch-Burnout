@@ -11,10 +11,10 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * Torch Burnout
- *
+ * 
  * @author jjtcomkid
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
- *
+ * 
  */
 public class ItemTorchNew extends ItemBlock {
 
@@ -33,6 +33,11 @@ public class ItemTorchNew extends ItemBlock {
 	}
 
 	@Override
+	public int getMetadata(int damage) {
+		return damage;
+	}
+
+	@Override
 	public String getUnlocalizedName(ItemStack itemStack) {
 		int damage = itemStack.getItemDamage();
 		if (damage == 0)
@@ -41,11 +46,6 @@ public class ItemTorchNew extends ItemBlock {
 			return "torchPartiallyLit";
 		else
 			return "torchUnlit";
-	}
-
-	@Override
-	public int getMetadata(int damage) {
-		return damage;
 	}
 
 }

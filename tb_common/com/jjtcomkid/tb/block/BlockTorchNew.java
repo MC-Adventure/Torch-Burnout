@@ -7,6 +7,8 @@ import net.minecraft.block.BlockTorch;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
@@ -23,10 +25,10 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * Torch Burnout
- *
+ * 
  * @author jjtcomkid
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
- *
+ * 
  */
 public class BlockTorchNew extends BlockTorch {
 
@@ -209,6 +211,18 @@ public class BlockTorchNew extends BlockTorch {
 
 	private boolean isVecInsideYZBounds(Vec3 vector) {
 		return vector == null ? false : vector.yCoord >= minY && vector.yCoord <= maxY && vector.zCoord >= minZ && vector.zCoord <= maxZ;
+	}
+
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int i1, float f1, float f2, float f3) {
+		TileEntityTorchNew tile = (TileEntityTorchNew) world.getBlockTileEntity(x, y, z);
+		if (tile != null && player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().itemID == Item.flintAndSteel.itemID && world.getBlockMetadata(x, y, z) > 5) {
+			int metadata = world.getBlockMetadata(x, y, z);
+			tile.light = 14;
+			world.setBlockMetadataWithNotify(x, y, z, metadata - 5, 3);
+			return true;
+		} else
+			return super.onBlockActivated(world, x, y, z, player, i1, f1, f2, f3);
 	}
 
 	@Override

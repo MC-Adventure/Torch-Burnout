@@ -10,10 +10,10 @@ import cpw.mods.fml.common.network.IGuiHandler;
 
 /**
  * Torch Burnout
- *
+ * 
  * @author jjtcomkid
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
- *
+ * 
  */
 public class CommonProxy implements IGuiHandler {
 
