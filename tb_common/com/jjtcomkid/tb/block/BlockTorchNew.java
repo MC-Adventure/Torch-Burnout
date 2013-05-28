@@ -257,7 +257,7 @@ public class BlockTorchNew extends BlockTorch {
 		super.updateTick(world, x, y, z, random);
 		int metadata = world.getBlockMetadata(x, y, z);
 		int light;
-		if (/* random.nextInt(25) == 0 && */metadata < 6) {
+		if (random.nextInt(25) == 0 && metadata < 6) {
 			TileEntityTorchNew tile = (TileEntityTorchNew) world.getBlockTileEntity(x, y, z);
 			if (tile != null) {
 				light = tile.light;
@@ -269,9 +269,6 @@ public class BlockTorchNew extends BlockTorch {
 					world.setBlockMetadataWithNotify(x, y, z, metadata + 5, 3);
 					metadata = world.getBlockMetadata(x, y, z);
 					world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, "random.fizz", 0.5F, 2.6F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8F);
-					for (int l = 0; l < 8; ++l) {
-						world.spawnParticle("smoke", x + 0.5F + Math.random() / 25, y + 0.7D, z + 0.5 + Math.random() / 25, 0.0D, 0.2D, 0.0D);
-					}
 				}
 			}
 		}
