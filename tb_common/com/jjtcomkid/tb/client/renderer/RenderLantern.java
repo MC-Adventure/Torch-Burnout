@@ -3,12 +3,12 @@
  */
 package com.jjtcomkid.tb.client.renderer;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.world.IBlockAccess;
+
+import org.lwjgl.opengl.GL11;
 
 import com.jjtcomkid.tb.TorchBurnout;
 
@@ -76,42 +76,42 @@ public class RenderLantern implements ISimpleBlockRenderingHandler {
 	public boolean shouldRender3DInInventory() {
 		return true;
 	}
-	
+
 	private void addBox(Block block, int x, int y, int z, RenderBlocks renderer, double originX, double originY, double originZ, int width, int height, int depth) {
 		renderer.setRenderBounds(originX / 16, originY / 16, originZ / 16, (originX + width) / 16, (originY + height) / 16, (originZ + depth) / 16);
 		renderer.renderStandardBlock(block, x, y, z);
 		renderer.renderFaceYNeg(block, x, y, z, null);
 	}
-	
+
 	private void addInventoryBox(Block block, RenderBlocks renderer, double originX, double originY, double originZ, int width, int height, int depth) {
 		renderer.setRenderBounds(originX / 16, originY / 16, originZ / 16, (originX + width) / 16, (originY + height) / 16, (originZ + depth) / 16);
 		Tessellator tessellator = Tessellator.instance;
 		GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
-        tessellator.startDrawingQuads();
-        tessellator.setNormal(0.0F, -1.0F, 0.0F);
-        renderer.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, null);
-        tessellator.draw();
-        tessellator.startDrawingQuads();
-        tessellator.setNormal(0.0F, 1.0F, 0.0F);
-        renderer.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, null);
-        tessellator.draw();
-        tessellator.startDrawingQuads();
-        tessellator.setNormal(0.0F, 0.0F, -1.0F);
-        renderer.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, null);
-        tessellator.draw();
-        tessellator.startDrawingQuads();
-        tessellator.setNormal(0.0F, 0.0F, 1.0F);
-        renderer.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, null);
-        tessellator.draw();
-        tessellator.startDrawingQuads();
-        tessellator.setNormal(-1.0F, 0.0F, 0.0F);
-        renderer.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, null);
-        tessellator.draw();
-        tessellator.startDrawingQuads();
-        tessellator.setNormal(1.0F, 0.0F, 0.0F);
-        renderer.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, null);
-        tessellator.draw();
-        GL11.glTranslatef(0.5F, 0.5F, 0.5F);
+		tessellator.startDrawingQuads();
+		tessellator.setNormal(0.0F, -1.0F, 0.0F);
+		renderer.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, null);
+		tessellator.draw();
+		tessellator.startDrawingQuads();
+		tessellator.setNormal(0.0F, 1.0F, 0.0F);
+		renderer.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, null);
+		tessellator.draw();
+		tessellator.startDrawingQuads();
+		tessellator.setNormal(0.0F, 0.0F, -1.0F);
+		renderer.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, null);
+		tessellator.draw();
+		tessellator.startDrawingQuads();
+		tessellator.setNormal(0.0F, 0.0F, 1.0F);
+		renderer.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, null);
+		tessellator.draw();
+		tessellator.startDrawingQuads();
+		tessellator.setNormal(-1.0F, 0.0F, 0.0F);
+		renderer.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, null);
+		tessellator.draw();
+		tessellator.startDrawingQuads();
+		tessellator.setNormal(1.0F, 0.0F, 0.0F);
+		renderer.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, null);
+		tessellator.draw();
+		GL11.glTranslatef(0.5F, 0.5F, 0.5F);
 	}
 
 }

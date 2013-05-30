@@ -39,10 +39,10 @@ public class BlockLantern extends Block {
 	public boolean isOpaqueCube() {
 		return false;
 	}
-	
+
 	@Override
 	public void registerIcons(IconRegister iconRegister) {
-		this.blockIcon = Block.planks.getIcon(0, 0);
+		blockIcon = Block.planks.getIcon(0, 0);
 	}
 
 	@Override

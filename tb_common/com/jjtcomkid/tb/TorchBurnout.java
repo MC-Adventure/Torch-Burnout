@@ -1,16 +1,13 @@
 package com.jjtcomkid.tb;
 
 import net.minecraft.block.Block;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import com.jjtcomkid.core.handler.LogHandler;
 import com.jjtcomkid.core.handler.OverrideHandler;
 import com.jjtcomkid.tb.block.BlockLantern;
-import com.jjtcomkid.tb.block.BlockRedstoneTorchNew;
 import com.jjtcomkid.tb.block.BlockTorchNew;
 import com.jjtcomkid.tb.item.ItemTorchNew;
 import com.jjtcomkid.tb.proxy.CommonProxy;
@@ -37,7 +34,6 @@ public class TorchBurnout {
 	public static int renderLanternID;
 
 	public static BlockTorchNew torchNew;
-	public static BlockRedstoneTorchNew torchRedstoneNew;
 	public static Block lantern = new BlockLantern(200).setLightValue(1.0F);
 
 	public static final LogHandler logger = new LogHandler("TorchBurnout");
@@ -45,9 +41,6 @@ public class TorchBurnout {
 	@Mod.Init
 	public void init(FMLInitializationEvent event) {
 		logger.info("Overiding vanilla torches.");
-		for (String name : OreDictionary.getOreNames()) {
-			logger.info(name);
-		}
 
 		if (OverrideHandler.removeRecipesWithResult(new ItemStack(Block.torchWood, 4)) == 2) {
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Block.torchWood, 4, 14), new Object[] { "X", "#", 'X', Item.coal, '#', "stickWood" }));
@@ -55,17 +48,15 @@ public class TorchBurnout {
 		} else {
 			logger.severe("Unable to replace torch recipes");
 		}
+
 		GameRegistry.addSmelting(Block.torchWood.blockID, new ItemStack(Block.torchWood, 1), 0);
-		
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TorchBurnout.lantern, 4), new Object[] { "XXX", "#Y#", "XXX", 'X', "plankWood", '#', "stickWood", 'Y', Block.glowStone}));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TorchBurnout.lantern, 4), new Object[] { "XXX", "#Y#", "XXX", 'X', "plankWood", '#', "stickWood", 'Y', Block.glowStone }));
 
 		Block.blocksList[50] = null;
-		Block.blocksList[76] = null;
 		torchNew = (BlockTorchNew) new BlockTorchNew().setHardness(0.0F).setLightValue(0.9375F).setStepSound(Block.soundWoodFootstep).setUnlocalizedName("torchNew");
-		torchRedstoneNew = (BlockRedstoneTorchNew) new BlockRedstoneTorchNew(true).setHardness(0.0F).setLightValue(0.8F / 3F).setStepSound(Block.soundWoodFootstep).setUnlocalizedName("notGate").setCreativeTab(CreativeTabs.tabRedstone);
-
 		OverrideHandler.replaceBlock(Block.torchWood, torchNew);
-		OverrideHandler.replaceBlock(Block.torchRedstoneActive, torchRedstoneNew);
+
+		Block.torchRedstoneActive.setLightValue(0.8F / 3F);
 
 		proxy.registerRenderInformation();
 
