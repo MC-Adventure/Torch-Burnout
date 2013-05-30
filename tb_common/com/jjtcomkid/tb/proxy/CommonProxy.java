@@ -28,7 +28,8 @@ public class CommonProxy implements IGuiHandler {
 	}
 
 	public void registerRenderInformation() {
-		TorchBurnout.renderID = RenderingRegistry.getNextAvailableRenderId();
+		TorchBurnout.renderTorchID = RenderingRegistry.getNextAvailableRenderId();
+		TorchBurnout.renderLanternID = RenderingRegistry.getNextAvailableRenderId();
 	}
 
 }

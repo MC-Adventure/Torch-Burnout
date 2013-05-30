@@ -184,7 +184,7 @@ public class BlockTorchNew extends BlockTorch {
 
 	@Override
 	public int getRenderType() {
-		return TorchBurnout.renderID;
+		return TorchBurnout.renderTorchID;
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })

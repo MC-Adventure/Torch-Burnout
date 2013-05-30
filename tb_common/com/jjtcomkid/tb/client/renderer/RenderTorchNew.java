@@ -20,7 +20,7 @@ public class RenderTorchNew implements ISimpleBlockRenderingHandler {
 
 	@Override
 	public int getRenderId() {
-		return TorchBurnout.renderID;
+		return TorchBurnout.renderTorchID;
 	}
 
 	@Override

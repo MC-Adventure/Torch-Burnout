@@ -1,5 +1,6 @@
 package com.jjtcomkid.tb.proxy;
 
+import com.jjtcomkid.tb.client.renderer.RenderLantern;
 import com.jjtcomkid.tb.client.renderer.RenderTorchNew;
 
 import cpw.mods.fml.client.registry.RenderingRegistry;
@@ -17,6 +18,7 @@ public class ClientProxy extends CommonProxy {
 	public void registerRenderInformation() {
 		super.registerRenderInformation();
 		RenderingRegistry.registerBlockHandler(new RenderTorchNew());
+		RenderingRegistry.registerBlockHandler(new RenderLantern());
 	}
 
 }

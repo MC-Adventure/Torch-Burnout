@@ -1,8 +1,12 @@
 package com.jjtcomkid.tb.item;
 
+import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
+import net.minecraft.world.World;
 
 import com.jjtcomkid.tb.TorchBurnout;
 
@@ -46,6 +50,28 @@ public class ItemTorchNew extends ItemBlock {
 			return "torchPartiallyLit";
 		else
 			return "torchUnlit";
+	}
+
+	@Override
+	public void onUpdate(ItemStack itemStack, World world, Entity entity, int slot, boolean isHeld) {
+		EntityPlayer player = (EntityPlayer) entity;
+
+		if (player.inventory.hasItem(Block.torchWood.blockID)) {
+			for (int itemSlot = slot; itemSlot < player.inventory.mainInventory.length; itemSlot++) {
+				ItemStack invStack = player.inventory.getStackInSlot(itemSlot);
+
+				if (invStack != null && invStack.itemID == Block.torchWood.blockID && invStack.getItemDamage() < 14) {
+					if (world.rand.nextInt(25) + world.rand.nextInt(25) + world.rand.nextInt(25) == 0) {
+						player.inventory.setInventorySlotContents(itemSlot, new ItemStack(Block.torchWood, invStack.stackSize, invStack.getItemDamage() + 1));
+					}
+					if (invStack.getItemDamage() - 1 == 14) {
+						player.playSound("random.fizz", 1.0F, 1.0F);
+					}
+				}
+			}
+		}
+		super.onUpdate(itemStack, world, entity, slot, isHeld);
+
 	}
 
 }

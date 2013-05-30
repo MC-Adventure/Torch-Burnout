@@ -9,6 +9,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import com.jjtcomkid.core.handler.LogHandler;
 import com.jjtcomkid.core.handler.OverrideHandler;
+import com.jjtcomkid.tb.block.BlockLantern;
 import com.jjtcomkid.tb.block.BlockRedstoneTorchNew;
 import com.jjtcomkid.tb.block.BlockTorchNew;
 import com.jjtcomkid.tb.item.ItemTorchNew;
@@ -32,10 +33,12 @@ public class TorchBurnout {
 	@SidedProxy(clientSide = "com.jjtcomkid.tb.proxy.ClientProxy", serverSide = "com.jjtcomkid.tb.proxy.CommonProxy")
 	public static CommonProxy proxy;
 
-	public static int renderID;
+	public static int renderTorchID;
+	public static int renderLanternID;
 
 	public static BlockTorchNew torchNew;
 	public static BlockRedstoneTorchNew torchRedstoneNew;
+	public static Block lantern = new BlockLantern(200).setLightValue(1.0F);
 
 	public static final LogHandler logger = new LogHandler("TorchBurnout");
 
@@ -52,6 +55,7 @@ public class TorchBurnout {
 		} else {
 			logger.severe("Unable to replace torch recipes");
 		}
+		GameRegistry.addSmelting(Block.torchWood.blockID, new ItemStack(Block.torchWood, 1), 0);
 
 		Block.blocksList[50] = null;
 		Block.blocksList[76] = null;
@@ -67,6 +71,7 @@ public class TorchBurnout {
 
 		Item.itemsList[50] = null;
 		GameRegistry.registerBlock(torchNew, ItemTorchNew.class, "torchNew");
+		GameRegistry.registerBlock(lantern, "lantern");
 
 		for (int i = 0; i <= 14; i++) {
 			ItemStack torchNewBlockStack = new ItemStack(torchNew, 1, i);
@@ -78,6 +83,7 @@ public class TorchBurnout {
 				LanguageRegistry.addName(torchNewBlockStack, "Unlit Torch");
 			}
 		}
+		LanguageRegistry.addName(new ItemStack(lantern, 1), "Lantern");
 
 	}
 
