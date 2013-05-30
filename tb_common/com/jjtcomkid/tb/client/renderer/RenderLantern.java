@@ -48,6 +48,7 @@ public class RenderLantern implements ISimpleBlockRenderingHandler {
 		renderer.setOverrideBlockTexture(Block.glowStone.getIcon(0, 0));
 		this.addInventoryBox(block, renderer, 6.0F, 1.0F, 6.0F, 4, 6, 4);
 		renderer.clearOverrideBlockTexture();
+		renderer.setRenderBounds(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
 	}
 
 	@Override
@@ -67,6 +68,7 @@ public class RenderLantern implements ISimpleBlockRenderingHandler {
 		renderer.setOverrideBlockTexture(Block.glowStone.getIcon(0, 0));
 		this.addBox(block, x, y, z, renderer, 6.0F, 1.0F, 6.0F, 4, 6, 4);
 		renderer.clearOverrideBlockTexture();
+		renderer.setRenderBounds(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
 		return true;
 	}
 

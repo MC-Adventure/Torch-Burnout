@@ -56,6 +56,8 @@ public class TorchBurnout {
 			logger.severe("Unable to replace torch recipes");
 		}
 		GameRegistry.addSmelting(Block.torchWood.blockID, new ItemStack(Block.torchWood, 1), 0);
+		
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TorchBurnout.lantern, 4), new Object[] { "XXX", "#Y#", "XXX", 'X', "plankWood", '#', "stickWood", 'Y', Block.glowStone}));
 
 		Block.blocksList[50] = null;
 		Block.blocksList[76] = null;
