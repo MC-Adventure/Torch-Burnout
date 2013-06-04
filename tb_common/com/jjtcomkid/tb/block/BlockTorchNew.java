@@ -164,6 +164,7 @@ public class BlockTorchNew extends BlockTorch {
 		return 14;
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public Icon getIcon(int side, int metadata) {
 		if (metadata < 6)
