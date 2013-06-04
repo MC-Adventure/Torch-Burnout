@@ -33,7 +33,10 @@ public class RenderLantern implements ISimpleBlockRenderingHandler {
 
 	@Override
 	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
-		renderer.setOverrideBlockTexture(Block.planks.getIcon(0, 0));
+		int basicMetadata = 0;
+		if (metadata == 1 || metadata == 3)
+			basicMetadata = 8;
+		renderer.setOverrideBlockTexture(TorchBurnout.lantern.getIcon(0, basicMetadata));
 		this.addInventoryBox(block, renderer, 4.0F, 0.0F, 4.0F, 8, 1, 8);
 		this.addInventoryBox(block, renderer, 10.5F, 1.0F, 4.5F, 1, 8, 1);
 		this.addInventoryBox(block, renderer, 4.5F, 1.0F, 4.5F, 1, 8, 1);
@@ -53,20 +56,45 @@ public class RenderLantern implements ISimpleBlockRenderingHandler {
 
 	@Override
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
-		renderer.setOverrideBlockTexture(Block.planks.getIcon(0, 0));
-		this.addBox(block, x, y, z, renderer, 4.0F, 0.0F, 4.0F, 8, 1, 8);
-		this.addBox(block, x, y, z, renderer, 10.5F, 1.0F, 4.5F, 1, 8, 1);
-		this.addBox(block, x, y, z, renderer, 4.5F, 1.0F, 4.5F, 1, 8, 1);
-		this.addBox(block, x, y, z, renderer, 4.5F, 1.0F, 10.5F, 1, 8, 1);
-		this.addBox(block, x, y, z, renderer, 10.5F, 1.0F, 10.5F, 1, 8, 1);
-		this.addBox(block, x, y, z, renderer, 4.0F, 9.0F, 4.0F, 8, 1, 8);
-		this.addBox(block, x, y, z, renderer, 5.0F, 10.0F, 5.0F, 6, 1, 6);
-		this.addBox(block, x, y, z, renderer, 6.0F, 11.0F, 6.0F, 4, 1, 4);
-		this.addBox(block, x, y, z, renderer, 6.5F, 12.0F, 7.5F, 1, 1, 1);
-		this.addBox(block, x, y, z, renderer, 8.5F, 12.0F, 7.5F, 1, 1, 1);
-		this.addBox(block, x, y, z, renderer, 6.5F, 13.0F, 7.5F, 3, 1, 1);
-		renderer.setOverrideBlockTexture(Block.glowStone.getIcon(0, 0));
-		this.addBox(block, x, y, z, renderer, 6.0F, 1.0F, 6.0F, 4, 6, 4);
+		int metadata = world.getBlockMetadata(x, y, z);
+		int basicMetadata = metadata;
+		if (metadata > 7)
+			basicMetadata = metadata - 8;
+		float xOffset = 4.0F;
+		float yOffset = 0.0F;
+		float zOffset = 4.0F;
+		if (basicMetadata != 0 && basicMetadata != 1)
+			yOffset = 2.0F;
+		if (basicMetadata == 2)
+			xOffset = 0.0F;
+		if (basicMetadata == 3)
+			xOffset = 8.0F;
+		if (basicMetadata == 4)
+			zOffset = 0.0F;
+		if (basicMetadata == 5)
+			zOffset = 8.0F;
+
+		renderer.setOverrideBlockTexture(TorchBurnout.lantern.getIcon(0, metadata));
+		this.addBox(block, x, y, z, renderer, xOffset, yOffset, zOffset, 8, 1, 8);
+		this.addBox(block, x, y, z, renderer, xOffset + 6.5F, yOffset + 1.0F, zOffset + 0.5F, 1, 8, 1);
+		this.addBox(block, x, y, z, renderer, xOffset + 0.5F, yOffset + 1.0F, zOffset + 0.5F, 1, 8, 1);
+		this.addBox(block, x, y, z, renderer, xOffset + 0.5F, yOffset + 1.0F, zOffset + 6.5F, 1, 8, 1);
+		this.addBox(block, x, y, z, renderer, xOffset + 6.5F, yOffset + 1.0F, zOffset + 6.5F, 1, 8, 1);
+		this.addBox(block, x, y, z, renderer, xOffset, yOffset + 9.0F, zOffset, 8, 1, 8);
+		this.addBox(block, x, y, z, renderer, xOffset + 1.0F, yOffset + 10.0F, zOffset + 1.0F, 6, 1, 6);
+		this.addBox(block, x, y, z, renderer, xOffset + 2.0F, yOffset + 11.0F, zOffset + 2.0F, 4, 1, 4);
+		if (basicMetadata == 0 || basicMetadata == 6) {
+			this.addBox(block, x, y, z, renderer, xOffset + 2.5F, yOffset + 12.0F, zOffset + 3.5F, 1, 1, 1);
+			this.addBox(block, x, y, z, renderer, xOffset + 4.5F, yOffset + 12.0F, zOffset + 3.5F, 1, 1, 1);
+			this.addBox(block, x, y, z, renderer, xOffset + 2.5F, yOffset + 13.0F, zOffset + 3.5F, 3, 1, 1);
+		}
+		else {
+			this.addBox(block, x, y, z, renderer, xOffset + 3.5F, yOffset + 12.0F, zOffset + 2.5F, 1, 1, 1);
+			this.addBox(block, x, y, z, renderer, xOffset + 3.5F, yOffset + 12.0F, zOffset + 4.5F, 1, 1, 1);
+			this.addBox(block, x, y, z, renderer, xOffset + 3.5F, yOffset + 13.0F, zOffset + 2.5F, 1, 1, 3);
+		}
+		renderer.setOverrideBlockTexture(renderer.getBlockIcon(Block.glowStone));
+		this.addBox(block, x, y, z, renderer, xOffset + 2.0F, yOffset + 1.0F, zOffset + 2.0F, 4, 6, 4);
 		renderer.clearOverrideBlockTexture();
 		renderer.setRenderBounds(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
 		return true;
@@ -80,11 +108,11 @@ public class RenderLantern implements ISimpleBlockRenderingHandler {
 	private void addBox(Block block, int x, int y, int z, RenderBlocks renderer, double originX, double originY, double originZ, int width, int height, int depth) {
 		renderer.setRenderBounds(originX / 16, originY / 16, originZ / 16, (originX + width) / 16, (originY + height) / 16, (originZ + depth) / 16);
 		renderer.renderStandardBlock(block, x, y, z);
-		renderer.renderFaceYNeg(block, x, y, z, null);
 	}
 
 	private void addInventoryBox(Block block, RenderBlocks renderer, double originX, double originY, double originZ, int width, int height, int depth) {
-		renderer.setRenderBounds(originX / 16, originY / 16, originZ / 16, (originX + width) / 16, (originY + height) / 16, (originZ + depth) / 16);
+		double originY2 = originY + 3;
+		renderer.setRenderBounds(originX / 16, originY2 / 16, originZ / 16, (originX + width) / 16, (originY2 + height) / 16, (originZ + depth) / 16);
 		Tessellator tessellator = Tessellator.instance;
 		GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
 		tessellator.startDrawingQuads();

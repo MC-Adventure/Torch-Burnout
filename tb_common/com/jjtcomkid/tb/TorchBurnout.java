@@ -9,6 +9,7 @@ import com.jjtcomkid.core.handler.LogHandler;
 import com.jjtcomkid.core.handler.OverrideHandler;
 import com.jjtcomkid.tb.block.BlockLantern;
 import com.jjtcomkid.tb.block.BlockTorchNew;
+import com.jjtcomkid.tb.item.ItemLantern;
 import com.jjtcomkid.tb.item.ItemTorchNew;
 import com.jjtcomkid.tb.proxy.CommonProxy;
 
@@ -41,6 +42,8 @@ public class TorchBurnout {
 	@Mod.Init
 	public void init(FMLInitializationEvent event) {
 		logger.info("Overiding vanilla torches.");
+		
+		OverrideHandler.removeRecipesWithResult(new ItemStack(Block.pumpkinLantern, 1));
 
 		if (OverrideHandler.removeRecipesWithResult(new ItemStack(Block.torchWood, 4)) == 2) {
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Block.torchWood, 4, 14), new Object[] { "X", "#", 'X', Item.coal, '#', "stickWood" }));
@@ -64,7 +67,7 @@ public class TorchBurnout {
 
 		Item.itemsList[50] = null;
 		GameRegistry.registerBlock(torchNew, ItemTorchNew.class, "torchNew");
-		GameRegistry.registerBlock(lantern, "lantern");
+		GameRegistry.registerBlock(lantern, ItemLantern.class, "lantern");
 
 		for (int i = 0; i <= 14; i++) {
 			ItemStack torchNewBlockStack = new ItemStack(torchNew, 1, i);
@@ -76,7 +79,10 @@ public class TorchBurnout {
 				LanguageRegistry.addName(torchNewBlockStack, "Unlit Torch");
 			}
 		}
-		LanguageRegistry.addName(new ItemStack(lantern, 1), "Lantern");
+		LanguageRegistry.addName(new ItemStack(lantern, 1, 0), "Lantern");
+		LanguageRegistry.addName(new ItemStack(lantern, 1, 1), "Nether Lantern");
+		LanguageRegistry.addName(new ItemStack(lantern, 1, 2), "Lantern with Hook");
+		LanguageRegistry.addName(new ItemStack(lantern, 1, 3), "Nether Lantern with Hook");
 
 	}
 
