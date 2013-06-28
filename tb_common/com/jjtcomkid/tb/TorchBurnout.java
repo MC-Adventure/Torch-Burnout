@@ -74,7 +74,9 @@ public class TorchBurnout {
 			if (i == 0) {
 				LanguageRegistry.addName(torchNewBlockStack, "Lit Torch");
 			} else if (i < 14) {
-				LanguageRegistry.addName(torchNewBlockStack, "Partially Burnt Torch");
+				float decimal = (14F - i) / 14F;
+				int percent = (int) (decimal * 100);
+				LanguageRegistry.addName(torchNewBlockStack, percent + "% Lit Torch");
 			} else {
 				LanguageRegistry.addName(torchNewBlockStack, "Unlit Torch");
 			}

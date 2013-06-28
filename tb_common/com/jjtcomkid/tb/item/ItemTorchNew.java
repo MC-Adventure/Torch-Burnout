@@ -47,7 +47,7 @@ public class ItemTorchNew extends ItemBlock {
 		if (damage == 0)
 			return "torchLit";
 		else if (damage < 14)
-			return "torchPartiallyLit";
+			return "torchPartiallyLit-" + damage;
 		else
 			return "torchUnlit";
 	}
