@@ -23,11 +23,9 @@
 		</copy>
 	</target>
 	
-	<!--<target name="replace_tokens">
+	<target name="replace_tokens">
 		<replace dir="${build.dir.development}\mcp\src\minecraft" token="@VERSION@" value="${build.release.mod.version}" />
-		<replace dir="${build.dir.development}\mcp\src\minecraft" token="@FINGERPRINT@" value="${build.release.mod.fingerprint}" />
-		<replace dir="${build.dir.development}\mcp\src\minecraft" token="@BUILD_NUMBER@" value="${build_number.build_number}" />
-	</target>-->
+	</target>
 	
 	<target name="recompile">
 		<exec dir="${build.dir.development}\mcp" executable="cmd" osfamily="windows">
@@ -65,8 +63,8 @@
 		<antcall target="reobfuscate" />
 		
 		<!-- Build the jar -->
-		<mkdir dir="${build.dir.release}\${build.release.minecraft.version}\${build.release.mod.version}" />
-		<jar destfile="${build.dir.release}\${build.release.minecraft.version}\${build.release.mod.version}\tb-universal-${build.release.mod.version}-${build_number.build_number}.jar">
+		<mkdir dir="${build.dir.build}\${build.release.minecraft.version}\${build.release.mod.version}" />
+		<jar destfile="${build.dir.build}\${build.release.minecraft.version}\${build.release.mod.version}\tb-universal-${build.release.mod.version}-${build_number.build_number}.jar">
 			<fileset dir="${build.dir.development}\mcp\src\minecraft\" includes="mcmod.info" />
 			<fileset dir="${build.dir.development}\mcp\reobf\minecraft" />
 			<fileset dir="${build.dir.development}\source\Torch-Burnout\resources" />
@@ -82,7 +80,8 @@
 		<antcall target="increment_build_number" />
 		<antcall target="prep" />
 		<antcall target="replace_tokens" />
-		<antcall target="recompile" />		
+		<antcall target="recompile" />
+		<antcall target="remove_dependencies" />
 		<antcall target="reobfuscate" />
 		
 		<!-- Build the jar -->

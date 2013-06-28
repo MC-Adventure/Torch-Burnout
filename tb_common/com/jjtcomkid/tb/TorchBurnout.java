@@ -26,7 +26,7 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  * 
  */
-@Mod(modid = "TorchBurnout", name = "Torch Burnout", version = "0.0.0")
+@Mod(modid = "TorchBurnout", name = "Torch Burnout", version = "@VERSION@")
 public class TorchBurnout {
     @SidedProxy(clientSide = "com.jjtcomkid.tb.proxy.ClientProxy", serverSide = "com.jjtcomkid.tb.proxy.CommonProxy")
     public static CommonProxy proxy;
