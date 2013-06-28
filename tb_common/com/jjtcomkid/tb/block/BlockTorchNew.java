@@ -1,8 +1,14 @@
 package com.jjtcomkid.tb.block;
 
+import static net.minecraftforge.common.ForgeDirection.EAST;
+import static net.minecraftforge.common.ForgeDirection.NORTH;
+import static net.minecraftforge.common.ForgeDirection.SOUTH;
+import static net.minecraftforge.common.ForgeDirection.WEST;
+
 import java.util.List;
 import java.util.Random;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockTorch;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -42,19 +48,29 @@ public class BlockTorchNew extends BlockTorch {
 		this.setCreativeTab(CreativeTabs.tabDecorations);
 		this.setUnlocalizedName("torchNew");
 	}
+	
+	public boolean canPlaceTorchOn(World world, int x, int y, int z) {
+		if (world.doesBlockHaveSolidTopSurface(x, y, z))
+			return true;
+		else {
+			int Id = world.getBlockId(x, y, z);
+			return (Block.blocksList[Id] != null && Block.blocksList[Id].canPlaceTorchOnTop(world, x, y, z));
+		}
+
+	}
 
 	@Override
 	public MovingObjectPosition collisionRayTrace(World world, int x, int y, int z, Vec3 vector1, Vec3 vector2) {
 		int metadata = world.getBlockMetadata(x, y, z);
 		float f = 0.15F;
 
-		if (metadata == 1 || metadata == 6) {
+		if (metadata == 1 || metadata == 7) {
 			this.setBlockBounds(0.0F, 0.2F, 0.5F - f, f * 2.0F, 0.8F, 0.5F + f);
-		} else if (metadata == 2 || metadata == 7) {
+		} else if (metadata == 2 || metadata == 8) {
 			this.setBlockBounds(1.0F - f * 2.0F, 0.2F, 0.5F - f, 1.0F, 0.8F, 0.5F + f);
-		} else if (metadata == 3 || metadata == 8) {
+		} else if (metadata == 3 || metadata == 9) {
 			this.setBlockBounds(0.5F - f, 0.2F, 0.0F, 0.5F + f, 0.8F, f * 2.0F);
-		} else if (metadata == 4 || metadata == 9) {
+		} else if (metadata == 4 || metadata == 10) {
 			this.setBlockBounds(0.5F - f, 0.2F, 1.0F - f * 2.0F, 0.5F + f, 0.8F, 1.0F);
 		} else {
 			f = 0.1F;
@@ -220,10 +236,70 @@ public class BlockTorchNew extends BlockTorch {
 		if (tile != null && player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().itemID == Item.flintAndSteel.itemID && world.getBlockMetadata(x, y, z) > 5) {
 			int metadata = world.getBlockMetadata(x, y, z);
 			tile.light = 14;
-			world.setBlockMetadataWithNotify(x, y, z, metadata - 5, 3);
+			world.setBlockMetadataWithNotify(x, y, z, metadata - 6, 3);
 			return true;
 		} else
 			return super.onBlockActivated(world, x, y, z, player, i1, f1, f2, f3);
+	}
+	
+	@Override
+	public void onBlockAdded(World world, int x, int y, int z) {
+		if (world.getBlockMetadata(x, y, z) == 0)
+        {
+            if (world.isBlockSolidOnSide(x - 1, y, z, EAST, true))
+            {
+                world.setBlockMetadataWithNotify(x, y, z, 1, 3);
+            }
+            else if (world.isBlockSolidOnSide(x + 1, y, z, WEST, true))
+            {
+                world.setBlockMetadataWithNotify(x, y, z, 2, 3);
+            }
+            else if (world.isBlockSolidOnSide(x, y, z - 1, SOUTH, true))
+            {
+                world.setBlockMetadataWithNotify(x, y, z, 3, 3);
+            }
+            else if (world.isBlockSolidOnSide(x, y, z + 1, NORTH, true))
+            {
+                world.setBlockMetadataWithNotify(x, y, z, 4, 3);
+            }
+            else if (this.canPlaceTorchOn(world, x, y - 1, z))
+            {
+                world.setBlockMetadataWithNotify(x, y, z, 5, 3);
+            }
+        }
+		else if (world.getBlockMetadata(x, y, z) == 6)
+        {
+            if (world.isBlockSolidOnSide(x - 1, y, z, EAST, true))
+            {
+                world.setBlockMetadataWithNotify(x, y, z, 7, 3);
+            }
+            else if (world.isBlockSolidOnSide(x + 1, y, z, WEST, true))
+            {
+                world.setBlockMetadataWithNotify(x, y, z, 8, 3);
+            }
+            else if (world.isBlockSolidOnSide(x, y, z - 1, SOUTH, true))
+            {
+                world.setBlockMetadataWithNotify(x, y, z, 9, 3);
+            }
+            else if (world.isBlockSolidOnSide(x, y, z + 1, NORTH, true))
+            {
+                world.setBlockMetadataWithNotify(x, y, z, 10, 3);
+            }
+            else if (this.canPlaceTorchOn(world, x, y - 1, z))
+            {
+                world.setBlockMetadataWithNotify(x, y, z, 11, 3);
+            }
+        }
+		
+        super.dropTorchIfCantStay(world, x, y, z);
+	}
+	
+	@Override
+	public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int metadata) {
+		int result = super.onBlockPlaced(world, x, y, z, side, hitX, hitY, hitZ, 0);
+		if (metadata == 14)
+			result += 6;
+		return result;
 	}
 
 	@Override
@@ -231,9 +307,6 @@ public class BlockTorchNew extends BlockTorch {
 		TileEntityTorchNew tile = (TileEntityTorchNew) world.getBlockTileEntity(x, y, z);
 		if (tile != null) {
 			tile.light = 14 - itemStack.getItemDamage();
-		}
-		if (itemStack.getItemDamage() == 14) {
-			world.setBlockMetadataWithNotify(x, y, z, world.getBlockMetadata(x, y, z) + 5, 3);
 		}
 	}
 

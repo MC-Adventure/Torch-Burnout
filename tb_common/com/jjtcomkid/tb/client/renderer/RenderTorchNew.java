@@ -42,13 +42,13 @@ public class RenderTorchNew implements ISimpleBlockRenderingHandler {
 			burnt = 6;
 		}
 
-		if (metadata == 1 || metadata == 6) {
+		if (metadata == 1 || metadata == 7) {
 			renderer.renderTorchAtAngle(block, x - d1, y + d2, z, -d0, 0.0D, burnt);
-		} else if (metadata == 2 || metadata == 7) {
+		} else if (metadata == 2 || metadata == 8) {
 			renderer.renderTorchAtAngle(block, x + d1, y + d2, z, d0, 0.0D, burnt);
-		} else if (metadata == 3 || metadata == 8) {
+		} else if (metadata == 3 || metadata == 9) {
 			renderer.renderTorchAtAngle(block, x, y + d2, z - d1, 0.0D, -d0, burnt);
-		} else if (metadata == 4 || metadata == 9) {
+		} else if (metadata == 4 || metadata == 10) {
 			renderer.renderTorchAtAngle(block, x, y + d2, z + d1, 0.0D, d0, burnt);
 		} else {
 			renderer.renderTorchAtAngle(block, x, y, z, 0.0D, 0.0D, burnt);
