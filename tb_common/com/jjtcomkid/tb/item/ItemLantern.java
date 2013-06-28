@@ -18,39 +18,39 @@ import cpw.mods.fml.relauncher.SideOnly;
  */
 public class ItemLantern extends ItemBlock {
 
-	public ItemLantern(int id) {
-		super(id);
-		hasSubtypes = true;
-	}
+    public ItemLantern(int id) {
+        super(id);
+        hasSubtypes = true;
+    }
 
-	@SideOnly(Side.CLIENT)
-	@Override
-	public Icon getIconFromDamage(int damage) {
-		if (damage == 1 || damage == 3)
-			return TorchBurnout.lantern.getIcon(0, 6);
-		else
-			return TorchBurnout.lantern.getIcon(0, 0);
-	}
+    @SideOnly(Side.CLIENT)
+    @Override
+    public Icon getIconFromDamage(int damage) {
+        if (damage == 1 || damage == 3)
+            return TorchBurnout.lantern.getIcon(0, 6);
+        else
+            return TorchBurnout.lantern.getIcon(0, 0);
+    }
 
-	@Override
-	public int getMetadata(int damage) {
-		return damage;
-	}
+    @Override
+    public int getMetadata(int damage) {
+        return damage;
+    }
 
-	@Override
-	public String getUnlocalizedName(ItemStack itemStack) {
-		int damage = itemStack.getItemDamage();
-		switch (damage) {
-			case 1:
-				return "netherLantern";
-			case 2:
-				return "lanternHook";
-			case 3:
-				return "netherLanternHook";
-			default:
-				return "lantern";
-			
-		}
-	}
+    @Override
+    public String getUnlocalizedName(ItemStack itemStack) {
+        int damage = itemStack.getItemDamage();
+        switch (damage) {
+            case 1:
+                return "netherLantern";
+            case 2:
+                return "lanternHook";
+            case 3:
+                return "netherLanternHook";
+            default:
+                return "lantern";
+
+        }
+    }
 
 }

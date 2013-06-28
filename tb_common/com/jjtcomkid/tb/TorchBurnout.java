@@ -28,64 +28,62 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
  */
 @Mod(modid = "TorchBurnout", name = "Torch Burnout", version = "0.0.0")
 public class TorchBurnout {
-	@SidedProxy(clientSide = "com.jjtcomkid.tb.proxy.ClientProxy", serverSide = "com.jjtcomkid.tb.proxy.CommonProxy")
-	public static CommonProxy proxy;
+    @SidedProxy(clientSide = "com.jjtcomkid.tb.proxy.ClientProxy", serverSide = "com.jjtcomkid.tb.proxy.CommonProxy")
+    public static CommonProxy proxy;
 
-	public static int renderTorchID;
-	public static int renderLanternID;
+    public static int renderTorchID;
+    public static int renderLanternID;
 
-	public static BlockTorchNew torchNew;
-	public static Block lantern = new BlockLantern(200).setLightValue(1.0F);
+    public static BlockTorchNew torchNew;
+    public static Block lantern = new BlockLantern(200).setLightValue(1.0F);
 
-	public static final LogHandler logger = new LogHandler("TorchBurnout");
+    public static final LogHandler logger = new LogHandler("TorchBurnout");
 
-	@Mod.Init
-	public void init(FMLInitializationEvent event) {
-		logger.info("Overiding vanilla torches.");
-		
-		OverrideHandler.removeRecipesWithResult(new ItemStack(Block.pumpkinLantern, 1));
+    @Mod.Init
+    public void init(FMLInitializationEvent event) {
+        logger.info("Overiding vanilla torches.");
 
-		if (OverrideHandler.removeRecipesWithResult(new ItemStack(Block.torchWood, 4)) == 2) {
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Block.torchWood, 4, 14), new Object[] { "X", "#", 'X', Item.coal, '#', "stickWood" }));
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Block.torchWood, 4, 14), new Object[] { "X", "#", 'X', new ItemStack(Item.coal, 1, 1), '#', "stickWood" }));
-		} else {
-			logger.severe("Unable to replace torch recipes");
-		}
+        OverrideHandler.removeRecipesWithResult(new ItemStack(Block.pumpkinLantern, 1));
 
-		GameRegistry.addSmelting(Block.torchWood.blockID, new ItemStack(Block.torchWood, 1), 0);
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TorchBurnout.lantern, 4), new Object[] { "XXX", "#Y#", "XXX", 'X', "plankWood", '#', "stickWood", 'Y', Block.glowStone }));
+        if (OverrideHandler.removeRecipesWithResult(new ItemStack(Block.torchWood, 4)) == 2) {
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Block.torchWood, 4, 14), new Object[] { "X", "#", 'X', Item.coal, '#', "stickWood" }));
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Block.torchWood, 4, 14), new Object[] { "X", "#", 'X', new ItemStack(Item.coal, 1, 1), '#', "stickWood" }));
+        } else
+            logger.severe("Unable to replace torch recipes");
 
-		Block.blocksList[50] = null;
-		torchNew = (BlockTorchNew) new BlockTorchNew().setHardness(0.0F).setLightValue(0.9375F).setStepSound(Block.soundWoodFootstep).setUnlocalizedName("torchNew");
-		OverrideHandler.replaceBlock(Block.torchWood, torchNew);
+        GameRegistry.addSmelting(Block.torchWood.blockID, new ItemStack(Block.torchWood, 1), 0);
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TorchBurnout.lantern, 4), new Object[] { "XXX", "#Y#", "XXX", 'X', "plankWood", '#', "stickWood", 'Y', Block.glowStone }));
 
-		Block.torchRedstoneActive.setLightValue(0.8F / 3F);
+        Block.blocksList[50] = null;
+        torchNew = (BlockTorchNew) new BlockTorchNew().setHardness(0.0F).setLightValue(0.9375F).setStepSound(Block.soundWoodFootstep).setUnlocalizedName("torchNew");
+        OverrideHandler.replaceBlock(Block.torchWood, torchNew);
 
-		proxy.registerRenderInformation();
+        Block.torchRedstoneActive.setLightValue(0.8F / 3F);
 
-		GameRegistry.registerTileEntity(com.jjtcomkid.tb.tileentity.TileEntityTorchNew.class, "Torch");
+        proxy.registerRenderInformation();
 
-		Item.itemsList[50] = null;
-		GameRegistry.registerBlock(torchNew, ItemTorchNew.class, "torchNew");
-		GameRegistry.registerBlock(lantern, ItemLantern.class, "lantern");
+        GameRegistry.registerTileEntity(com.jjtcomkid.tb.tileentity.TileEntityTorchNew.class, "Torch");
 
-		for (int i = 0; i <= 14; i++) {
-			ItemStack torchNewBlockStack = new ItemStack(torchNew, 1, i);
-			if (i == 0) {
-				LanguageRegistry.addName(torchNewBlockStack, "Lit Torch");
-			} else if (i < 14) {
-				float decimal = (14F - i) / 14F;
-				int percent = (int) (decimal * 100);
-				LanguageRegistry.addName(torchNewBlockStack, percent + "% Lit Torch");
-			} else {
-				LanguageRegistry.addName(torchNewBlockStack, "Unlit Torch");
-			}
-		}
-		LanguageRegistry.addName(new ItemStack(lantern, 1, 0), "Lantern");
-		LanguageRegistry.addName(new ItemStack(lantern, 1, 1), "Nether Lantern");
-		LanguageRegistry.addName(new ItemStack(lantern, 1, 2), "Lantern with Hook");
-		LanguageRegistry.addName(new ItemStack(lantern, 1, 3), "Nether Lantern with Hook");
+        Item.itemsList[50] = null;
+        GameRegistry.registerBlock(torchNew, ItemTorchNew.class, "torchNew");
+        GameRegistry.registerBlock(lantern, ItemLantern.class, "lantern");
 
-	}
+        for (int i = 0; i <= 14; i++) {
+            ItemStack torchNewBlockStack = new ItemStack(torchNew, 1, i);
+            if (i == 0)
+                LanguageRegistry.addName(torchNewBlockStack, "Lit Torch");
+            else if (i < 14) {
+                float decimal = (14F - i) / 14F;
+                int percent = (int) (decimal * 100);
+                LanguageRegistry.addName(torchNewBlockStack, percent + "% Lit Torch");
+            } else
+                LanguageRegistry.addName(torchNewBlockStack, "Unlit Torch");
+        }
+        LanguageRegistry.addName(new ItemStack(lantern, 1, 0), "Lantern");
+        LanguageRegistry.addName(new ItemStack(lantern, 1, 1), "Nether Lantern");
+        LanguageRegistry.addName(new ItemStack(lantern, 1, 2), "Lantern with Hook");
+        LanguageRegistry.addName(new ItemStack(lantern, 1, 3), "Nether Lantern with Hook");
+
+    }
 
 }

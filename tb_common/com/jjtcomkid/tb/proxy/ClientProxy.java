@@ -14,11 +14,11 @@ import cpw.mods.fml.client.registry.RenderingRegistry;
  */
 public class ClientProxy extends CommonProxy {
 
-	@Override
-	public void registerRenderInformation() {
-		super.registerRenderInformation();
-		RenderingRegistry.registerBlockHandler(new RenderTorchNew());
-		RenderingRegistry.registerBlockHandler(new RenderLantern());
-	}
+    @Override
+    public void registerRenderInformation() {
+        super.registerRenderInformation();
+        RenderingRegistry.registerBlockHandler(new RenderTorchNew());
+        RenderingRegistry.registerBlockHandler(new RenderLantern());
+    }
 
 }
