@@ -35,7 +35,7 @@ public class TorchBurnout {
     public static int renderLanternID;
 
     public static BlockTorchNew torchNew;
-    public static Block lantern = new BlockLantern(200).setLightValue(1.0F);
+    public static BlockLantern lantern = new BlockLantern(200);
 
     public static final LogHandler logger = new LogHandler("TorchBurnout");
 
