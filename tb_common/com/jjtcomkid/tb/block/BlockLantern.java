@@ -38,6 +38,7 @@ public class BlockLantern extends Block {
         super(par1, Material.wood);
         setCreativeTab(CreativeTabs.tabDecorations);
         setUnlocalizedName("lantern");
+        setLightValue(1.0F);
     }
 
     @Override
@@ -64,8 +65,14 @@ public class BlockLantern extends Block {
     }
 
     @Override
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World par1World, int par2, int par3, int par4) {
-        return null;
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
+        int metadata = world.getBlockMetadata (x, y, z);
+        if (metadata == 6 || metadata == 7 || metadata == 14 || metadata == 15)
+            this.setBlockBounds(0.25F, 0.125F, 0.25F, 0.75F, 1.0F, 0.75F);
+        else
+            this.setBlockBounds(0, 0, 0, 0, 0, 0);
+        
+        return super.getCollisionBoundingBoxFromPool(world, x, y, z);
     }
 
     @SideOnly(Side.CLIENT)
@@ -97,55 +104,48 @@ public class BlockLantern extends Block {
 
     @Override
     public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int metadata) {
-        int setMetadata = metadata;
-        if (metadata == 0 && world.rand.nextBoolean())
-            setMetadata = 1;
-        if (metadata == 1)
-            if (world.rand.nextBoolean())
-                setMetadata = metadata + 7;
+        int newMetadata = 0;
+        if (metadata == 0)
+            if (side == 1 && world.rand.nextBoolean())
+                newMetadata = 0;
             else
-                setMetadata = metadata + 8;
+                newMetadata = 1;
+        if (metadata == 1)
+            if (side == 1 && world.rand.nextBoolean())
+                newMetadata = 8;
+            else
+                newMetadata = 9;
         if (metadata == 2) {
-            if (side == 1 && canPlaceLanternOn(world, x, y - 1, z))
-                if (world.rand.nextBoolean())
-                    setMetadata = 0;
-                else
-                    setMetadata = 1;
             if (side == 2 && world.isBlockSolidOnSide(x, y, z + 1, NORTH, true))
-                setMetadata = 5;
+                newMetadata = 5;
             if (side == 3 && world.isBlockSolidOnSide(x, y, z - 1, SOUTH, true))
-                setMetadata = 4;
+                newMetadata = 4;
             if (side == 4 && world.isBlockSolidOnSide(x + 1, y, z, WEST, true))
-                setMetadata = 3;
+                newMetadata = 3;
             if (side == 5 && world.isBlockSolidOnSide(x - 1, y, z, EAST, true))
-                setMetadata = 2;
-            if (side == 6 && world.isBlockSolidOnSide(x, y, z, DOWN, true))
+                newMetadata = 2;
+            if (side == 0 && world.isBlockSolidOnSide(x, y + 1, z, DOWN, true))
                 if (world.rand.nextBoolean())
-                    setMetadata = 6;
+                    newMetadata = 6;
                 else
-                    setMetadata = 7;
+                    newMetadata = 7;
         }
         if (metadata == 3) {
-            if (side == 1 && canPlaceLanternOn(world, x, y - 1, z))
-                if (world.rand.nextBoolean())
-                    setMetadata = 8;
-                else
-                    setMetadata = 9;
             if (side == 2 && world.isBlockSolidOnSide(x, y, z + 1, NORTH, true))
-                setMetadata = 13;
+                newMetadata = 13;
             if (side == 3 && world.isBlockSolidOnSide(x, y, z - 1, SOUTH, true))
-                setMetadata = 12;
+                newMetadata = 12;
             if (side == 4 && world.isBlockSolidOnSide(x + 1, y, z, WEST, true))
-                setMetadata = 11;
+                newMetadata = 11;
             if (side == 5 && world.isBlockSolidOnSide(x - 1, y, z, EAST, true))
-                setMetadata = 10;
-            if (side == 6 && world.isBlockSolidOnSide(x, y, z, DOWN, true))
+                newMetadata = 10;
+            if (side == 0 && world.isBlockSolidOnSide(x, y + 1, z, DOWN, true))
                 if (world.rand.nextBoolean())
-                    setMetadata = 14;
+                    newMetadata = 14;
                 else
-                    setMetadata = 15;
+                    newMetadata = 15;
         }
-        return setMetadata;
+        return newMetadata;
     }
 
     @SideOnly(Side.CLIENT)

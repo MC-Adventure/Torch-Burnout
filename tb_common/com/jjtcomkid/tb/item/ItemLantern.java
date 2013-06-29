@@ -1,8 +1,10 @@
 package com.jjtcomkid.tb.item;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
+import net.minecraft.world.World;
 
 import com.jjtcomkid.tb.TorchBurnout;
 
@@ -51,6 +53,16 @@ public class ItemLantern extends ItemBlock {
                 return "lantern";
 
         }
+    }
+    
+    @Override
+    public boolean canPlaceItemBlockOnSide(World world, int x, int y, int z, int side, EntityPlayer player, ItemStack itemStack) {
+        if (itemStack.getItemDamage() <= 1 && side == 1)
+            return super.canPlaceItemBlockOnSide(world, x, y, z, side, player, itemStack);
+        if (itemStack.getItemDamage() >= 2 && side != 1)
+            return super.canPlaceItemBlockOnSide(world, x, y, z, side, player, itemStack);
+        else
+            return false;
     }
 
 }
