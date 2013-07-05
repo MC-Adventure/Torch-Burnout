@@ -14,8 +14,10 @@ import com.jjtcomkid.tb.item.ItemTorchNew;
 import com.jjtcomkid.tb.proxy.CommonProxy;
 
 import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
@@ -38,11 +40,18 @@ public class TorchBurnout {
     public static BlockLantern lantern = new BlockLantern(200);
 
     public static final LogHandler logger = new LogHandler("TorchBurnout");
-
-    @Mod.Init
-    public void init(FMLInitializationEvent event) {
+    
+    @EventHandler
+    public void preInit(FMLPreInitializationEvent event) {
         logger.info("Overiding vanilla torches.");
+        Block.blocksList[50] = null;
+        torchNew = (BlockTorchNew) new BlockTorchNew().setHardness(0.0F).setLightValue(0.9375F).setStepSound(Block.soundWoodFootstep).setUnlocalizedName("torchNew");
+        OverrideHandler.replaceBlock(Block.torchWood, torchNew);
+    }
 
+    @EventHandler
+    public void init(FMLInitializationEvent event) {
+        logger.info("Overiding vanilla torch recipes.");
         OverrideHandler.removeRecipesWithResult(new ItemStack(Block.pumpkinLantern, 1));
 
         if (OverrideHandler.removeRecipesWithResult(new ItemStack(Block.torchWood, 4)) == 2) {
@@ -53,10 +62,6 @@ public class TorchBurnout {
 
         GameRegistry.addSmelting(Block.torchWood.blockID, new ItemStack(Block.torchWood, 1), 0);
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TorchBurnout.lantern, 4), new Object[] { "XXX", "#Y#", "XXX", 'X', "plankWood", '#', "stickWood", 'Y', Block.glowStone }));
-
-        Block.blocksList[50] = null;
-        torchNew = (BlockTorchNew) new BlockTorchNew().setHardness(0.0F).setLightValue(0.9375F).setStepSound(Block.soundWoodFootstep).setUnlocalizedName("torchNew");
-        OverrideHandler.replaceBlock(Block.torchWood, torchNew);
 
         Block.torchRedstoneActive.setLightValue(0.8F / 3F);
 
