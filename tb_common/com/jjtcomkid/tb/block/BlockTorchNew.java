@@ -278,7 +278,7 @@ public class BlockTorchNew extends BlockTorch {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IconRegister icon) {
-        torchLitIcon = icon.registerIcon("torch");
+        torchLitIcon = icon.registerIcon("torch_on");
         torchBurntIcon = icon.registerIcon("torchburnout:torch_burnt");
     }
 
