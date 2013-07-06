@@ -215,6 +215,7 @@ public class BlockTorchNew extends BlockTorch {
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int i1, float f1, float f2, float f3) {
         TileEntityTorchNew tile = (TileEntityTorchNew) world.getBlockTileEntity(x, y, z);
         if (tile != null && player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().itemID == Item.flintAndSteel.itemID && world.getBlockMetadata(x, y, z) > 5) {
+            player.getCurrentEquippedItem().damageItem(1, player);
             int metadata = world.getBlockMetadata(x, y, z);
             tile.light = 14;
             world.setBlockMetadataWithNotify(x, y, z, metadata - 6, 3);
